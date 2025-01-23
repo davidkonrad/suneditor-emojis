@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="#">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<script src="demo.js"></script>
+<script src="2.47.2/dist/suneditor.min.js"></script>
+<script src="2.47.2/src/lang/en.js"></script>
+<link rel="stylesheet" type="text/css" href="2.47.2/dist/css/suneditor.min.css">
+
+<!--
+<script src="../src/suneditor-emojis.js"></script>
+<link href="../src/suneditor-emojis.css" rel="stylesheet" type="text/css" >
+-->
+
+<script src="../dev/suneditor-emojis-loader.js"></script>
+<script src="../dev/suneditor-emojis.js"></script>
+<link href="../dev/suneditor-emojis.css" rel="stylesheet" type="text/css" >
+
+
+<style>
+body {
+	margin-left: 5rem;
+	margin-top: 2rem;
+	font-family: helvetica;
+}
+#editor {
+	width: 75%;
+}
+#options {
+	width: 25%;
+}
+</style>
+</head>
+<body>
+
+<form spellcheck="false" style="width:50%;">
+	<h2>
+		<span id="test-desc">SunEditor emojis plugin demo</span> 
+		<select id="test-select" style="float:right;font-size:x-large;"><option></option></select>
+	</h2>
+	<textarea id="editor"></textarea>	
+	<pre id="options"></pre>
+</form>
+
+<script>
+/*
+const editor = SUNEDITOR.create('editor', {
+	mode: 'classic',
+	width: '100%',
+	height: 'auto',
+	minHeight : '40vh',
+	plugins: [emojisPlugin],
+	buttonList: [
+		['undo', 'redo', 'font', 'fontSize', 'formatBlock'], ['emojis'],
+		['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
+		['fontColor', 'hiliteColor'], 
+	],
+	lang: SUNEDITOR_LANG['en'],
+	charCounter: true,
+	emojis: {
+		//sections: ['Smileys & Emotion', 'Flags'],
+		//favorites: true,
+		//width: '50rem'
+		size: '1rem'
+	},
+})
+document.querySelector('.sun-editor-editable').focus()
+*/
+</script>
+
+</body>
+
