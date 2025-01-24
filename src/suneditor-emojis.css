@@ -1,5 +1,7 @@
 .se-emojis {
 	overflow: auto;
+	position: relative;
+	font-family: helvetica;
 }
 
 .se-emojis button {
@@ -69,4 +71,35 @@
 	color: gray;
 }
 
+.se-emojis .topmenu {
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	align-content: flex-end;
+	background-color: #fafafa;
+	background-color: rgba(250, 250, 250, 0.9);
+	padding: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px inset #ebebeb;
+}
+.se-emojis .topmenu input,
+.se-emojis .topmenu span,
+.se-emojis .topmenu Xdiv {
+	background-color: rgba(250, 250, 250, 1);
+}
 
+.se-emojis .btn-iconsize, 
+.se-emojis .btn-skintone {
+	padding: 2px;
+	cursor: pointer;
+	border: 1px dotted #ebebeb;
+}
+.se-emojis .btn-skintone-active {
+	border: 1px dotted #dadada;
+}
+
+.se-emojis .btn-iconsize:hover,
+.se-emojis .btn-skintone:hover {
+	background-color: #dadada;
+}

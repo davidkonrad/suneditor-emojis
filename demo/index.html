@@ -16,20 +16,21 @@
 
 <script src="../dev/suneditor-emojis-loader.js"></script>
 <script src="../dev/suneditor-emojis.js"></script>
+<!--
 <link href="../dev/suneditor-emojis.css" rel="stylesheet" type="text/css" >
-
+-->
 
 <style>
 body {
 	margin-left: 5rem;
 	margin-top: 2rem;
 	font-family: helvetica;
+	color: #222;
 }
-#editor {
-	width: 75%;
-}
-#options {
-	width: 25%;
+#test-select {
+	float: right;
+	font-size: large;
+	padding: .3rem;
 }
 </style>
 </head>
@@ -38,7 +39,7 @@ body {
 <form spellcheck="false" style="width:50%;">
 	<h2>
 		<span id="test-desc">SunEditor emojis plugin demo</span> 
-		<select id="test-select" style="float:right;font-size:x-large;"><option></option></select>
+		<select id="test-select"></select>
 	</h2>
 	<textarea id="editor"></textarea>	
 	<pre id="options"></pre>

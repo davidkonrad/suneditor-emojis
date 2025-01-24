@@ -6,21 +6,23 @@ const Tests = [
 		options: undefined
 	},
 	{ 
-		desc: 'No topmenu',
-		options: {
-			topmenu: false
-		}
-	},
-	{ 
 		desc: 'Smileys and flags only',
 		options: {
+			favorites: false,
 			iconSize: '1.5rem',
 			sections: ['Smileys & Emotion', 'Flags'],
 			names: ['Emojis', 'Flags']
 		}
 	},
-
-
+	{ 
+		desc: 'Topmenu with search and skinetone',
+		options: {
+			topmenu: {
+				search: true,
+				skinTone: true
+			}
+		}
+	},
 ]
 
 const Demo = (function() {
@@ -46,6 +48,22 @@ const Demo = (function() {
 		sel.dispatchEvent(new Event('change'))
 	}
 
+	const getDefaults = function() {
+		const sections = ['Smileys & Emotion', 'Activities', 'Animals & Nature', 'Flags', 'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
+		return {
+			sections: sections.slice(),
+			names: sections.slice(),
+			favorites: true,
+			iconSize: '1.5rem',
+			skinTone: 'neutral',
+			topmenu: {
+				search: false,
+				skinTone: false,
+				iconSize: false
+			}
+		}
+	}
+
 	const initEditor = function(opt) {
 		const options = {
 			mode: 'classic',
@@ -54,22 +72,23 @@ const Demo = (function() {
 			minHeight : '40vh',
 			plugins: [emojisPlugin],
 			buttonList: [
-				['undo', 'redo', 'font', 'fontSize', 'formatBlock'], ['emojis'],
-				['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
+				['font', 'fontSize', 'formatBlock'], ['emojis'],
+				['bold', 'underline', 'italic', 'strike', 'removeFormat'],
 				['fontColor', 'hiliteColor'], 
 			],
 			lang: SUNEDITOR_LANG['en'],
-			charCounter: true
 		}
-		if (opt) options.emojis = opt
+		options.emojis = opt ? Object.assign({}, getDefaults(), opt) : getDefaults()
 		if (editor) editor.destroy()
 		editor = SUNEDITOR.create('editor', options)
 		document.querySelector('.sun-editor-editable').focus()
 		let s = ''
 		if (opt) {
 			const obj = { emojis: opt }
-			s = JSON.stringify(obj, null, 2)
-			s = s.substr(1, s.length-2)
+			s = JSON.stringify(obj, null, '  ')
+			s = s.replace(/\\/g, '')
+			s = s.replace(/"([^"]+)":/g, '$1:') //https://stackoverflow.com/a/11233515/1407478
+			s = s.substr(1, s.length - 2)
 		}
 		document.getElementById('options').innerText = s
 	}
