@@ -76,7 +76,7 @@ const Demo = (function() {
 				['bold', 'underline', 'italic', 'strike', 'removeFormat'],
 				['fontColor', 'hiliteColor'], 
 			],
-			lang: SUNEDITOR_LANG['en'],
+			//lang: SUNEDITOR_LANG['en'],
 		}
 		options.emojis = opt ? Object.assign({}, getDefaults(), opt) : getDefaults()
 		if (editor) editor.destroy()
