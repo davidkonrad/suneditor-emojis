@@ -5,15 +5,16 @@ const Tests = [
 		desc: 'Default initialization',
 		options: undefined
 	},
+	//----------------------------------
 	{ 
 		desc: 'Smileys and flags only',
 		options: {
 			favorites: false,
-			iconSize: '1.5rem',
-			sections: ['Smileys & Emotion', 'Flags'],
+			groups: ['Smileys & Emotion', 'Flags'],
 			names: ['Emojis', 'Flags']
 		}
 	},
+	//----------------------------------
 	{ 
 		desc: 'Topmenu with search and skinetone',
 		options: {
@@ -23,6 +24,21 @@ const Tests = [
 			}
 		}
 	},
+	//----------------------------------
+	{
+		desc: 'Group names in spanish',
+		options: {
+			names: ['Sonrisas y emociones',	'Actividades', 'Animales y naturaleza', 'Banderas',	'Comida y bebida', 'Objetos',	'Personas y cuerpo', 'Símbolos', 'Viajes y lugares'	]
+		}
+	},
+	//----------------------------------
+	{
+		desc: 'showFallbacks true',
+		options: {
+			showFallbacks: true
+		}
+	}
+
 ]
 
 const Demo = (function() {
@@ -44,15 +60,15 @@ const Demo = (function() {
 				}
 			})
 		}
-		sel.selectedIndex = 1
+		sel.selectedIndex = 0
 		sel.dispatchEvent(new Event('change'))
 	}
 
 	const getDefaults = function() {
-		const sections = ['Smileys & Emotion', 'Activities', 'Animals & Nature', 'Flags', 'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
+		const groups = ['Smileys & Emotion', 'Activities', 'Animals & Nature', 'Flags', 'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
 		return {
-			sections: sections.slice(),
-			names: sections.slice(),
+			groups: groups.slice(),
+			names: groups.slice(),
 			favorites: true,
 			iconSize: '1.5rem',
 			skinTone: 'neutral',
@@ -60,7 +76,8 @@ const Demo = (function() {
 				search: false,
 				skinTone: false,
 				iconSize: false
-			}
+			},
+			showFallbacks: false
 		}
 	}
 
@@ -76,9 +93,9 @@ const Demo = (function() {
 				['bold', 'underline', 'italic', 'strike', 'removeFormat'],
 				['fontColor', 'hiliteColor'], 
 			],
-			//lang: SUNEDITOR_LANG['en'],
+			defaultStyle: "font-size:1.5rem;"
 		}
-		options.emojis = opt ? Object.assign({}, getDefaults(), opt) : getDefaults()
+		options.emojis = opt ? Object.assign(getDefaults(), opt) : getDefaults()
 		if (editor) editor.destroy()
 		editor = SUNEDITOR.create('editor', options)
 		document.querySelector('.sun-editor-editable').focus()

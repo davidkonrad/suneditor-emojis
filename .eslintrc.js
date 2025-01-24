@@ -7,9 +7,10 @@ module.exports = {
 		"root": true,
     "extends": "eslint:recommended",
     "globals": {
+			"Emojis": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": "2020",
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "rules": {

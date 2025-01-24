@@ -13,7 +13,6 @@ but are using a local version trimmed by 75% (less than 100k). By that the plugi
 Include JS and CSS :
 ```html
 <script src="suneditor-emojis.js"></script>
-<link href="suneditor-emojis.css" rel="stylesheet" type="text/css" >
 ```
 Now add ```emojisPlugin``` to the ```plugins``` option, and add the ```emojis``` button to ```buttonList``` : 
 ```javascript
@@ -31,19 +30,31 @@ const editor = SUNEDITOR.create('editor', {
 You may want to alter the defaults, change settings by an ```emojis``` option :
 ```javascript
 emojis: {
-  sections: array
+  groups: array
   names: array
   favorites: bool
   iconSize: string
-  skinTone: false, 1-5
-  menu: {
+  skinTone: string
+  topmenu: {
     search: bool
     iconSize: bool
     skinTone: bool
-  }
+  },
+  hideFallbacks: bool
+  saveState: bool
 }
 ```
-You can spec
-### sections
+### groups
+Must
+Specify which groups sections Determine The emojis 
+
+### hideFallbacks
+Newer emojis can have a fallback the browser can show instead of the not supported code. 
+They will often be rendered as two emojis side by side, like 🍄🟫 as fallback for 
+"Brown Mushroom" introduced in v15.1. By setting ```hideFallbacks``` to true, you get rid of 
+those fallbacks; ```true``` by default. 
 
 
+option | meaning | default 
+--- | --- | --- | 
+sections | 301 | 283 
