@@ -33,19 +33,19 @@ const editor = SUNEDITOR.create('editor', {
 You may want to alter the defaults, change settings by an ```emojis``` option :
 ```javascript
 emojis: {
-  groups: <array of strings>,
-  names: <array of strings>,
-  favorites: <bool>,
-  iconSize: <string>,
-  skinTone: <string>,
+  groups: [array],
+  names: [array],
+  favorites: true,
+  iconSize: 'string',
+  skinTone: 'string',
   topmenu: {
-    search: <bool>,
-    iconSize: <bool>,
-    skinTone: <bool>
+    search: true,
+    iconSize: true,
+    skinTone: true
   }
-  showFallbacks: <bool>,
-  width: <string>,
-  height: <string>
+  showFallbacks: false,
+  width: 'string',
+  height: 'string'
 }
 ```
 
@@ -89,6 +89,16 @@ emojis: {
 }
 ```
 
+### iconSize
+The ```font-size``` of emojis shown in groups or by search. 
+
+```javascript
+emojis: {
+  iconSize: '1.5rem'
+}
+```
+
+💡 You can also enable ```topmenu.iconSize``` and let the user choose the size for themselves.
 
 ### skinTone 🖖 🖖🏻 🖖🏼 🖖🏽 🖖🏾 🖖🏿
 Some ```'People & Body'``` emojis can be styled with six different 'skintones': 
@@ -101,7 +111,7 @@ emojis: {
 }
 ```
 
-You can also enable the skinTone topmenu and let the user choose a skintone.
+💡 You can also enable ```topmenu.skinTone``` and let the user choose a skintone for themselves.
 
 ### showFallbacks
 Newer emojis may have a fallback that the browser can show as substitute if the unicode is not supported.
