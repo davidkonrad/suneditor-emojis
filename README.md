@@ -15,7 +15,7 @@ without showing "odd" emojis
 but are using a local version trimmed by 75% (less than 100k). By that the plugin are updated according to the latest version of the unicode standard (currently 16.0). 
 
 ## Usage
-Include JS and CSS :
+Include JS and CSS files from ```/dist``` :
 ```html
 <script src="suneditor-emojis.js"></script>
 ```
@@ -24,9 +24,8 @@ Now add ```emojisPlugin``` to the ```plugins``` option, and add the ```emojis```
 const editor = SUNEDITOR.create('editor', {
   ...     
   plugins: [emojisPlugin],
-  buttonList: [
-    ['emojis']
-  ],
+  buttonList: ['emojis'],
+  emojis: { ... },
   ...
 })  
 ```
