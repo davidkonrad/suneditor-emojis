@@ -1,6 +1,6 @@
 # suneditor-emojis
 
-Add a Unicode Emojis submenu to the SunEditor toolbar. 
+Add a Unicode Emojis submenu to the SunEditor toolbar
 
 ![SunEditor Emojis plugin](assets/sample.png)
 
@@ -50,10 +50,10 @@ emojis: {
 }
 ```
 
-### groups
+### ```groups```
 
 Specify the type of emojis to include in the dropdown. The emojis are ordered into the (official) 
-group names 
+group names. If ```groups``` not are set all groups are included
 
 ```javascript
 emojis: {
@@ -76,12 +76,15 @@ Below is an overview of the different groups and their number of emojis
 🚫 | ```'Symbols'``` | 224
 🚀 | ```'Travel & Places'``` | 218
 
-Since this is based on the latest version of the unicode standard, no browser is able to render all emojis correct. 
-There are differences between the major browsers, and browsers are always behind the standard.  If ```groups``` 
-are not set all groups are included.
+Since this is based on the latest version of the Unicode standard, no browser is able to render all emojis correct. 
 
-
-### names
+### ```names```
+Group captions. By default the same as the group names. Use names as localization of emoji group names. Here an example of spanish group names 
+```javascript
+emojis: {
+	names: ['Sonrisas y emociones',	'Actividades', 'Animales y naturaleza', 'Banderas',	'Comida y bebida', 'Objetos',	'Personas y cuerpo', 'Símbolos', 'Viajes y lugares'	]
+}
+```
 
 ### favorites
 When ```true``` clicked emojis are remembered and shown as first choice in the dropdown.
