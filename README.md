@@ -33,19 +33,19 @@ const editor = SUNEDITOR.create('editor', {
 You may want to alter the defaults, change settings by an ```emojis``` option :
 ```javascript
 emojis: {
-  groups: array
-  names: array
-  favorites: bool
-  iconSize: string
-  skinTone: string
+  groups: <array of strings>,
+  names: <array of strings>,
+  favorites: <bool>,
+  iconSize: <string>,
+  skinTone: <string>,
   topmenu: {
-    search: bool
-    iconSize: bool
-    skinTone: bool
+    search: <bool>,
+    iconSize: <bool>,
+    skinTone: <bool>
   }
-  showFallbacks: bool
-  width: string
-  height: string
+  showFallbacks: <bool>,
+  width: <string>,
+  height: <string>
 }
 ```
 
@@ -81,6 +81,13 @@ emojis: {
 ### names
 
 ### favorites
+When ```true``` clicked emojis are remembered and shown as first choice in the dropdown.
+
+```javascript
+emojis: {
+  favorites: true
+}
+```
 
 
 ### skinTone 🖖 🖖🏻 🖖🏼 🖖🏽 🖖🏾 🖖🏿
@@ -108,12 +115,12 @@ emojis: {
 ```
 
 ### width, height
-The SunEditor submenu dropdown will typically fit the screen height and edge with the editor. 
-You may want to reduce the height of the dropdown or increase the width 
+The SunEditor submenu dropdown will automatically fit the screen height and edge with the editor. 
+You may want to reduce the height of the dropdown or increase the width. 
 
 ```javascript
 emojis: {
-  height: '20rem',
-  width: '100rem'
+  width: '50rem',
+  height: '30rem'
 }
 ```
