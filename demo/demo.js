@@ -50,8 +50,8 @@ const Tests = [
 	{
 		desc: 'height, width',
 		options: {
-			height: '20rem',
-			width: '100rem'
+			height: '30rem',
+			width: '50rem'
 		}
 	},
 	//----------------------------------
