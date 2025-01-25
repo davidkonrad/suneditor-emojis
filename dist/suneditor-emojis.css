@@ -1,0 +1,109 @@
+.se-emojis {
+	overflow: auto;
+	position: relative;
+	font-family: helvetica;
+}
+
+.se-emojis button {
+	font-weight: 400;
+	color: #212529;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	font-size: inherit;
+	display: inline;
+	width: auto !important;
+	float: left;
+}
+
+.se-emojis button.btn-emoji {
+	padding: 2px 4px;
+	box-shadow: none !important;
+}
+
+.se-emojis button.btn-emoji:hover {
+	background-color: #dadada;
+}
+
+.se-emojis span.emoji {
+	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.se-emojis .clear-favorites {
+	float: left;
+	line-height: .6rem;
+	height: .6rem;
+	padding: 0;
+	cursor: pointer;
+	font-weight: bold;
+	background-color: #ebebeb;
+	color: #666;
+	border: 1px solid #bbb;
+}
+.se-emojis i.clear-favorites:hover {
+	border: 1px solid #dadada;
+	color: maroon;
+}
+
+.se-emojis header:not(:first) {
+	margin-top: 5px;
+}
+
+.se-emojis header {
+	padding: 3px;
+	float: left;
+	font-size: small;
+	font-weight: bold;
+	width: 100%;
+	min-width: 100%;
+	background: #ebebeb;
+	color: gray;
+}
+
+.se-emojis .topmenu {
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	align-content: flex-end;
+	background-color: #fafafa;
+	background-color: rgba(245, 245, 245, 0.7);
+	padding: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px inset #ebebeb;
+	float: right;
+}
+.se-emojis .topmenu input,
+.se-emojis .topmenu span {
+	background-color: rgba(250, 250, 250, 1);
+}
+.se-emojis .topmenu .topmenu-item {
+	margin-top: 2px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.se-emojis .btn-iconsize, 
+.se-emojis .btn-skintone {
+	padding: 2px;
+	cursor: pointer;
+	border: 1px dotted #ebebeb;
+	border-radius: 4px;
+}
+.se-emojis .btn-skintone-active {
+	border: 1px solid #ccc;
+}
+
+.se-emojis .btn-iconsize:hover,
+.se-emojis .btn-skintone:hover {
+	background-color: #dadada;
+}

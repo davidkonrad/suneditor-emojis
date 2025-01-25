@@ -30,7 +30,7 @@ const editor = SUNEDITOR.create('editor', {
 })  
 ```
 
-## options
+## Options
 You may want to alter the defaults, change settings by an ```emojis``` option :
 ```javascript
 emojis: {
