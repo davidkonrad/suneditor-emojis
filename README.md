@@ -1,10 +1,10 @@
 # suneditor-emojis
 
 Add a Unicode Emojis submenu to the SunEditor toolbar. 
-The plugin comes with several useful features :
 
-![alt text](assets/sample.png)
+![SunEditor Emojis plugin](assets/sample.png)
 
+The plugin comes with several useful features 
 
 - Test for local browser support, also trims out fallbacks; by that the browsers entire range is used 
 without showing "odd" emojis
@@ -53,8 +53,17 @@ emojis: {
 
 ### groups
 
-Specify the type of emojis to include in the dropdown. 
-Below is an overview of the different groups and their number of emojis :
+Specify the type of emojis to include in the dropdown. The emojis are ordered into the (official) 
+group names 
+
+```javascript
+emojis: {
+  groups: ['Smileys & Emotion',  'Activities', 'Animals & Nature', 'Flags', 
+      'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
+  }       
+}
+```
+Below is an overview of the different groups and their number of emojis 
 
 | # | group | emojis (v16.0)
 --- | --- | --- | 
@@ -72,13 +81,6 @@ Since this is based on the latest version of the unicode standard, no browser is
 There are differences between the major browsers, and browsers are always behind the standard.  If ```groups``` 
 are not set all groups are included.
 
-```javascript
-emojis: {
-  groups: ['Smileys & Emotion',  'Activities', 'Animals & Nature', 'Flags', 
-      'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
-  }       
-}
-```
 
 ### names
 
