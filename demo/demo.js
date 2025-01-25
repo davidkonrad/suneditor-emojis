@@ -16,11 +16,12 @@ const Tests = [
 	},
 	//----------------------------------
 	{ 
-		desc: 'Topmenu with search and skinetone',
+		desc: 'Topmenu (search, iconSize, skinTone)',
 		options: {
 			topmenu: {
+				iconSize: true,
 				search: true,
-				skinTone: true
+				skinTone: true,
 			}
 		}
 	},
@@ -43,6 +44,23 @@ const Tests = [
 		desc: 'skinTone medium',
 		options: {
 			skinTone: 'medium'
+		}
+	},
+	//----------------------------------
+	{
+		desc: 'height, width',
+		options: {
+			height: '20rem',
+			width: '100rem'
+		}
+	},
+	//----------------------------------
+	{
+		desc: 'ERR',
+		options: {
+			groups: 'test',
+			iconSize: 22,
+			showFallbacks: 'test'
 		}
 	}
 

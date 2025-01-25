@@ -41,6 +41,8 @@ emojis: {
     skinTone: bool
   }
   showFallbacks: bool
+  width: string
+  height: string
 }
 ```
 
@@ -62,7 +64,8 @@ Below is an overview of the different groups and their number of emojis :
 🚀 | ```'Travel & Places'``` | 218
 
 Since this is based on the latest version of the unicode standard, no browser is able to render all emojis correct. 
-There are differences between the major browsers, and browsers are always behind the standard.  
+There are differences between the major browsers, and browsers are always behind the standard.  If ```groups``` 
+are not set all groups are included.
 
 ```javascript
 emojis: {
@@ -78,11 +81,9 @@ emojis: {
 
 
 ### skinTone 🖖 🖖🏻 🖖🏼 🖖🏽 🖖🏾 🖖🏿
-Some People & Body emojis can be styled with six different "skintones": 
+Some ```'People & Body'``` emojis can be styled with six different 'skintones': 
 ```'neutral'```, ```'light'```, ```'mediumLight'```, ```'medium'```, ```'mediumDark'```, 
 ```'dark'```. 
-
-Default value
 
 ```javascript
 emojis: {
@@ -93,11 +94,9 @@ emojis: {
 You can also enable the skinTone topmenu and let the user choose a skintone.
 
 ### showFallbacks
-More newer emojis may have a fallback the browser can show as replacement for the not supported unicode. 
+Newer emojis may have a fallback that the browser can show as substitute if the unicode is not supported.
 Those will often be rendered as two emojis side by side, like 🍄 🟫 as fallback for 
 "Brown Mushroom", introduced in v15.1. The plugin hide fallbacks by default, but you can enable them by setting ```showFallbacks``` to true.
-
-Default value
 
 ```javascript
 emojis: {
@@ -105,4 +104,13 @@ emojis: {
 }
 ```
 
+### width, height
+The SunEditor submenu dropdown will typically fit the screen height and edge with the editor. 
+You may want to reduce the height of the dropdown or increase the width 
 
+```javascript
+emojis: {
+  height: '20rem',
+  width: '100rem'
+}
+```
