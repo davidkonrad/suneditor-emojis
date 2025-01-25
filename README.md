@@ -82,12 +82,13 @@ Since this is based on the latest version of the Unicode standard, no browser is
 Group captions. By default the same as the group names. Use names as localization of emoji group names. Here an example of spanish group names 
 ```javascript
 emojis: {
-	names: ['Sonrisas y emociones',	'Actividades', 'Animales y naturaleza', 'Banderas',	'Comida y bebida', 'Objetos',	'Personas y cuerpo', 'Símbolos', 'Viajes y lugares'	]
+	names: ['Sonrisas y emociones',	'Actividades', 'Animales y naturaleza', 'Banderas',	
+       'Comida y bebida', 'Objetos',	'Personas y cuerpo', 'Símbolos', 'Viajes y lugares'	]
 }
 ```
 
 ### favorites
-When ```true``` clicked emojis are remembered and shown as first choice in the dropdown.
+When ```true``` clicked emojis are remembered and shown as first choice in the dropdown
 
 ```javascript
 emojis: {
