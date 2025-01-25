@@ -1,11 +1,13 @@
 # suneditor-emojis
 
-Add a unicode emojis submenu to the SunEditor toolbar. It comes with several useful features :
+Add a Unicode Emojis submenu to the SunEditor toolbar. 
+The plugin comes with several useful features :
 
 ![alt text](assets/sample.png)
 
 
-- Test for local browser support; only emojis the browser actually supports are shown. By that any possible emoji are shown, except those the browser for some reason is unable to render (for example because it is an older browser)
+- Test for local browser support, also trims out fallbacks; by that the browsers entire range is used 
+without showing "odd" emojis
 
 - A built-in cache speeds up loading and rendering 
 
@@ -42,7 +44,7 @@ emojis: {
     search: true,
     iconSize: true,
     skinTone: true
-  }
+  },
   showFallbacks: false,
   width: 'string',
   height: 'string'
