@@ -10,7 +10,7 @@ const Tests = [
 		desc: 'Smileys and flags only',
 		options: {
 			favorites: false,
-			groups: ['Smileys & Emotion', 'Flags'],
+			groups: ['Smileys & Emotion', 'Flags', 'test'],
 			names: ['Emojis', 'Flags']
 		}
 	},
@@ -36,6 +36,13 @@ const Tests = [
 		desc: 'showFallbacks true',
 		options: {
 			showFallbacks: true
+		}
+	},
+	//----------------------------------
+	{
+		desc: 'skinTone medium',
+		options: {
+			skinTone: 'medium'
 		}
 	}
 

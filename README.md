@@ -44,17 +44,47 @@ emojis: {
   saveState: bool
 }
 ```
+
 ### groups
-Must
-Specify which groups sections Determine The emojis 
 
-### hideFallbacks
-Newer emojis can have a fallback the browser can show instead of the not supported code. 
-They will often be rendered as two emojis side by side, like 🍄🟫 as fallback for 
-"Brown Mushroom" introduced in v15.1. By setting ```hideFallbacks``` to true, you get rid of 
-those fallbacks; ```true``` by default. 
+Array of group names 
 
-
-option | meaning | default 
+| # | group | emojis (v16.0)
 --- | --- | --- | 
-sections | 301 | 283 
+😀 | ```'Smileys & Emotion'``` | 169
+🎯 | ```'Activities'``` | 85
+🦓 | ```'Animals & Nature'``` | 159
+🇩🇰 | ```'Flags'``` | 270
+🍷 | ```'Food & Drink'``` | 131
+👑 | ```'Objects'``` | 264
+👍 | ```'People & Body'``` | 386
+🚫 | ```'Symbols'``` | 224
+🚀 | ```'Travel & Places'``` | 218
+
+Default value 
+
+```javascript
+emojis: {
+  groups: ['Smileys & Emotion',  'Activities', 'Animals & Nature', 'Flags', 
+      'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
+  }       
+}
+```
+### showFallbacks
+More newer emojis may have a fallback the browser can show as replacement for the not supported unicode. 
+Those will often be rendered as two emojis side by side, like 🍄 🟫 as fallback for 
+"Brown Mushroom", introduced in v15.1. The plugin hide fallbacks by default, but you can enable them by setting ```showFallbacks``` to true.
+
+### skinTone 🖖 🖖🏻 🖖🏼 🖖🏽 🖖🏾 🖖🏿
+Some People & Body emojis can be styled with six different "skintones": 
+```'neutral'```, ```'light'```, ```'mediumLight'```, ```'medium'```, ```'mediumDark'```, 
+```'dark'```. 
+
+Default value
+
+```javascript
+emojis: {
+  skinTone: 'neutral'
+}
+```
+

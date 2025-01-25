@@ -39,21 +39,20 @@
 	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-.se-emojis i.clear-favorites {
-	display: inline-block;
-	cursor: pointer;
-	background-color: #ebebeb;
-	color: gray;
+.se-emojis .clear-favorites {
+	float: left;
+	line-height: .6rem;
+	height: .6rem;
 	padding: 0;
-	position: relative;
-	top: -5px;
-	right: 1px;
-	height: .8rem;
-	font-style: normal;
+	cursor: pointer;
+	font-weight: bold;
+	background-color: #ebebeb;
+	color: #666;
+	border: 1px solid #bbb;
 }
-
 .se-emojis i.clear-favorites:hover {
 	border: 1px solid #dadada;
+	color: maroon;
 }
 
 .se-emojis header:not(:first) {
@@ -61,7 +60,7 @@
 }
 
 .se-emojis header {
-	padding-left: 4px;
+	padding: 3px;
 	float: left;
 	font-size: small;
 	font-weight: bold;
@@ -82,10 +81,10 @@
 	padding: 5px;
 	margin-bottom: 5px;
 	border-bottom: 1px inset #ebebeb;
+	float: right;
 }
 .se-emojis .topmenu input,
-.se-emojis .topmenu span,
-.se-emojis .topmenu Xdiv {
+.se-emojis .topmenu span {
 	background-color: rgba(250, 250, 250, 1);
 }
 

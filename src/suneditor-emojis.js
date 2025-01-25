@@ -12,14 +12,18 @@
 
 "use strict";
 
-const Emojis = (function(window, document) {
+const Emojis = (function() {
 	const storage_favorite = 'suneditor-emojis-fav'
 	const storage_supported = 'suneditor-emojis-sup'
+	const storage_disabled = false
 	const __fav__ = ''
 	const emojis = {}
+	let _css = undefined
 	let supported_cache = {}
+	let emoji_width = undefined
 
 	const init = function() {
+		fetchCSS()
 		fetchSupported()
 		fetchEmojis()
 	}
@@ -58,6 +62,7 @@ const Emojis = (function(window, document) {
 	}
 
 	const fetchSupported = function() {
+		if (storage_disabled) return {}
 		const s = localStorage.getItem(storage_supported)
 		supported_cache = s ? JSON.parse(s) : {}
 	}
@@ -65,16 +70,58 @@ const Emojis = (function(window, document) {
 	const registerSupported = function(emoji, supported) {
 		if (!emoji) return
 		supported_cache[emoji] = supported
+		if (storage_disabled) return 
 		localStorage.setItem(storage_supported, JSON.stringify(supported_cache))	
 	}
 
+	const testFallback = function(emoji) {
+		const s = document.body.appendChild(document.createElement('span'))
+		s.appendChild(document.createTextNode(emoji))
+		const res = parseFloat(s.offsetWidth)
+		s.parentNode.removeChild(s)
+		return res
+	}
+
+	window.addEventListener('load', function() {
+		emoji_width = testFallback('😀')
+	})
+
 	const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
 
+	/*
+		0: not supprted
+		1: supported
+		2: fallback
+	*/
 	const isSupported = function(emoji) {
 		if (emoji in supported_cache) return supported_cache[emoji]
-		ctx.canvas.width = ctx.canvas.height = 1
-		ctx.fillText(emoji, -4, 4)
-		const res = ctx.getImageData(0, 0, 1, 1).data[3] > 0
+
+		const canRender = function() {
+			ctx.canvas.width = ctx.canvas.height = 1
+			ctx.fillText(emoji, -4, 4)
+			return ctx.getImageData(0, 0, 1, 1).data[3] > 0
+		}
+
+		const isNativeCompound = function() {
+			const t = Array.from(emoji)
+			if (t.length === 1) return false
+			let c = 0
+			for (const e of t) {
+				if (/\p{Emoji}/u.test(e)) c++
+			}
+			return c > 2
+		}
+
+		let res = undefined
+		if (canRender()) {
+			if (testFallback(emoji) > emoji_width) {
+				if (!isNativeCompound(emoji)) res = 2
+			} else {
+				res = 1
+			}
+		} else {
+			res = 0
+		}
 		registerSupported(emoji, res)
 		return res
 	}
@@ -165,26 +212,44 @@ const Emojis = (function(window, document) {
 	}
 
 	const fetchEmojis = function() {
-		const xhr = new XMLHttpRequest()
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-				switch (xhr.status) {
-					case 200 :
-						parseEmojis(xhr.responseText)
-						break
-					case 404 : 
-					default :
-						console.log('file not found')
-						break
-				}
-			}
+		try {
+			fetch(getPath() + '/data-by-group.16.min.json', {
+				method: 'GET',
+				headers: { 'Accept': 'application/json' }
+			})
+			.then(response => response.text())
+			.then(response => parseEmojis(response))
+		} catch(error) {
+			console.log(error)
 		}
-		xhr.open('GET', getPath() + '/data-by-group.16.min.json', true)
-		xhr.send()
+	}
+
+	const fetchCSS = function() {
+		try {
+			fetch(getPath() + '/suneditor-emojis.css', {
+				method: 'GET',
+				headers: { 'Accept': 'text/plain' }
+			})
+			.then(response => response.text())
+			.then(response => _css = response)
+		} catch(error) {
+			console.log(error)
+		}
+	}
+
+	const injectCSS = function() {
+		const sid = 'suneditor-emojis-css'
+		if (!document.getElementById(sid)) {
+			const style = document.createElement('style')
+			style.id = sid
+			style.textContent = _css
+			document.head.append(style)
+		}
 	}
 
 	return {
 		init,
+		injectCSS,
 		getEmoji,
 		isSupported,
 		registerEmoji,
@@ -192,12 +257,12 @@ const Emojis = (function(window, document) {
 		resetRegistered,
 		skinTone,
 		skinTones,
-		emojis
+		emojis,
 	}
 
-})(window, document)
+})()
 
-Emojis.init()
+Emojis.init();
 
 "use strict";
 
@@ -209,7 +274,7 @@ const emojisPlugin = (function() {
 	const topmenu_name = 'se-emojis-menu'
 	const fav_name = 'se-emojis-fav'
 	const result_name = 'se-emojis-result'
-	const default_sections = [
+	const default_groups = [
 		'Smileys & Emotion', 
 		'Activities', 
 		'Animals & Nature', 
@@ -222,8 +287,9 @@ const emojisPlugin = (function() {
 	]
 
 	let options = {
-		sections: default_sections.slice(),
-		names: default_sections.slice(),
+		collection: undefined,
+		groups: default_groups.slice(),
+		names: default_groups.slice(),
 		favorites: true,
 		iconSize: '1.5rem',
 		skinTone: 'neutral',
@@ -231,28 +297,21 @@ const emojisPlugin = (function() {
 			search: false,
 			skinTone: false,
 			iconSize: false
-		}
+		},
+		showFallbacks: false,
+		storage: false
 	}
 
 	let _core = undefined
 
 	const add = function(core, targetElement) {
 		_core = core
+		Emojis.injectCSS()
 		if (core.options.emojis) options = Object.assign({}, options, core.options.emojis)
-		console.log(options)
 		let listDiv = setSubmenu.call(core)
 		setTopmenu(listDiv.querySelector('div[name="' + topmenu_name + '"]'))
+		updateClearFav(listDiv.querySelector('div[name="' + fav_name + '"]'))
 		core.initMenuTarget(name, targetElement, listDiv)
-/*
-		setTimeout(function() {
-			listDiv.style.height = '20rem'
-			listDiv.style.width = '60rem'		
-			listDiv.style.resize = 'both'
-		}, 50)
-*/
-		//listDiv.style.maxHeight = '400px'
-		//listDiv.style.resize = 'both'
-		//listDiv.setAttribute('resize', 'both')
 	}
 
 	const setSubmenu = function(core) {
@@ -261,37 +320,45 @@ const emojisPlugin = (function() {
 		listDiv.style.paddingTop = 0
 		//listDiv.resize = 'both'
 
-		if (options.favorites) {
-			options.sections.unshift('')
-			options.names.unshift('')
-		}
-
 		//const width = ('width' in options) ? options.width : '30rem'
 		
 		//let html = '<div class="se-list-inner" style="position:relative;min-width:' + width + ';padding-left:3px;top:-5px;">'
 		let html = '<div class="se-list-inner" XXstyle="margin-top:2rem;"Xstyle="position:relative;padding-left:3px;top:-5px;">'
 		html += '<div class="se-emojis">'
 		
-		html += '<div>'
-		html += '<div name="' + topmenu_name + '" class="topmenu"></div>'
-		html += '</div>'
+		const topmenu = options.topmenu && (options.topmenu.search || options.topmenu.iconSize || options.topmenu.skinTone)
+		if (topmenu) {
+			html += '<div>'
+			html += '<div name="' + topmenu_name + '" class="topmenu"></div>'
+			html += '</div>'
+		}
+
+		if (options.favorites) {
+			options.groups.unshift('')
+			options.names.unshift('')
+			let s = 'style="' //padding-top:.5rem;'
+			s += topmenu ? 'margin-top:2.2rem;"' : '"'
+			html += '<div name="' + fav_name + '" ' + s + '></div>'
+		}
 
 		html += '<div style="display:block;float:left;XXmargin-top:2rem;">'
 		html += '<div name="' + result_name + '">'
 		html += '</div>'
 
-		for (const [i,sec] of options.sections.entries()) {
-			html += '<div style="display:block;float:left;Xwidth:100%;Xmin-width:100%;">'
-			if (sec !== '') html += '<header>' + options.names[i] + '</header>'
-			html += '<div name="' + (sec || fav_name) + '" style="display:inner-block;float:left;"></div>'
-			html += '</div>'
+		for (const [i,group] of options.groups.entries()) {
+			if (group) {
+				html += '<div style="display:block;float:left;">'
+				html += '<header>' + (options.names[i] || group) + '</header>'
+				html += '<div name="' + group + '" style="display:inner-block;float:left;"></div>'
+				html += '</div>'
+			}
 		}
 
 		html += '</div>'
 		listDiv.innerHTML = html 
 
 		populateEmojis(listDiv)
-		updateClearFav(listDiv)
+		//updateClearFav(listDiv)
 
 		return listDiv
 	}
@@ -304,19 +371,7 @@ const emojisPlugin = (function() {
 			if (reset) cnt.innerText = ''
 			if (Emojis.emojis[type] && Emojis.emojis[type].length) {
 				Emojis.emojis[type].forEach(function(emoji) {
-					if (cnt && emoji) {
-						//createBtn(emoji.emoji, emoji.name, cnt)
-						createBtn(emoji, cnt)
-/*
-						if (emoji.skintone && options.skinTone !== 'neutral') {
-							createBtn(Emojis.skinTone(emoji.emoji, options.skinTone), emoji.name, cnt)
-						} else {
-							createBtn(emoji.emoji, emoji.name, cnt)
-						} 
-*/
-					} else {
-						//console.log('err', emoji, type)
-					}
+					if (emoji && cnt) createBtn(emoji, cnt)
 				})
 			} else {
 				console.log( typeof emoji === 'undefined' 
@@ -328,11 +383,10 @@ const emojisPlugin = (function() {
 	}
 
 	const setTopmenu = function(cnt) {
+		cnt = cnt || document.querySelector('.se-emojis div[name="' + topmenu_name + '"]')
+		if (!cnt) return
 		cnt.innerText = ''
-		if (!options.topmenu) {
-			cnt.style.display = 'none'
-			return
-		}
+
 		if (options.topmenu.iconSize) {
 			let html = '<span class="btn-iconsize" data-type="+" title="increase icon size">➕</span><span class="btn-iconsize" data-type="-" title="decrease icon size">➖</span>'
 			cnt.insertAdjacentHTML('beforeEnd', '<div style="font-size:small;">' + html + '</div>')
@@ -372,6 +426,9 @@ const emojisPlugin = (function() {
 				}
 				search(this.value)
 			}
+			setTimeout(function() {
+				input.focus()
+			})
 		}
 
 		if (options.topmenu.skinTone) {
@@ -392,7 +449,6 @@ const emojisPlugin = (function() {
 				}
 			})
 		}
-
 		setTimeout(function() {
 			cnt.style.width = getComputedStyle(document.querySelector('.se-emojis')).width
 		}, 50)
@@ -402,8 +458,8 @@ const emojisPlugin = (function() {
 		const res = document.querySelector('div[name="' + result_name + '"]')
 		res.innerHTML = ''
 		res.style.display = 'block'
-		for (const [i,sec] of options.sections.entries()) {
-			document.querySelector('div[name="' + (sec || fav_name) + '"]').parentElement.style.visibility = 'hidden'
+		for (const [i,group] of options.groups.entries()) {
+			document.querySelector('div[name="' + (group || fav_name) + '"]').parentElement.style.visibility = 'hidden'
 		}
 	}
 
@@ -411,8 +467,8 @@ const emojisPlugin = (function() {
 		const res = document.querySelector('div[name="' + result_name + '"]')
 		res.innerText = ''
 		res.style.display = 'none'
-		for (const [i,sec] of options.sections.entries()) {
-			document.querySelector('div[name="' + (sec || fav_name) + '"]').parentElement.style.visibility = 'visible'
+		for (const [i,group] of options.groups.entries()) {
+			document.querySelector('div[name="' + (group || fav_name) + '"]').parentElement.style.visibility = 'visible'
 		}
 	}
 
@@ -428,20 +484,14 @@ const emojisPlugin = (function() {
 		for (let type in Emojis.emojis) {
 			Emojis.emojis[type].forEach(function(emoji) {
 				if (emoji && emoji.name.toLowerCase().indexOf(term) > -1) {
-					//createBtn(emoji.emoji, emoji.name, cnt)
 					createBtn(emoji, cnt)
 				}
 			})
 		}
 	}
 
-	const updateClearFav = function(listDiv) {
-		listDiv = listDiv || document.querySelector('.se-emojis-layer')
-		const cnt = listDiv.querySelector('div[name="' + fav_name + '"]')
+	const updateClearFav = function(cnt) {
 		if (!cnt || cnt.innerText === '') return
-		cnt.querySelectorAll('button').forEach(function(btn) {
-			btn.addEventListener('click', onClick.bind())
-		})
 		const btn = document.createElement('i')
 		btn.classList.add('clear-favorites')
 		btn.title = 'Clear favorites'
@@ -454,37 +504,49 @@ const emojisPlugin = (function() {
 	}
 
 	const updateFavorites = function() {
-		const cnt = document.querySelector('div[name="' + fav_name + '"]')
+		const cnt = document.querySelector('.se-emojis div[name="' + fav_name + '"]')
 		cnt.innerText = ''
 		if (Emojis.emojis && Emojis.emojis['']) Emojis.emojis[''].forEach(function(emoji) {
-			//createBtn(emoji.emoji, emoji.name, cnt)
-				createBtn(emoji, cnt)
+			createBtn(emoji, cnt)
 		})
 		updateClearFav(cnt)
 	}
 
 	const createBtn = function(emoji, cnt) {
-		if (!Emojis.isSupported(emoji.emoji)) return
-		const cp = emoji.emoji
+		if (!emoji) {
+			console.log('createBtn null emoji', emoji)
+			return
+		}
+		switch (Emojis.isSupported(emoji.emoji)) {
+			case 0:
+				return
+			case 1: 
+				break
+			case 2:
+				if (!options.showFallbacks) return
+		}				
+		const cp = Object.assign({}, emoji)
 		const btn = document.createElement('button')
 		const render = emoji.skintone && options.skinTone !== 'neutral'
-			? Emojis.skinTone(cp, options.skinTone)
+			? Emojis.skinTone(cp.emoji, options.skinTone)
 			: emoji.emoji
 		const name = emoji.name.charAt(0).toUpperCase() + emoji.name.slice(1)
 		btn.className = 'btn-emoji'
 		btn.type = 'button'
 		btn.title = name
-		btn.innerHTML = '<span class="emoji">' + render + '</span>'
+		btn.innerHTML = '<span class="emoji" data-emoji="' + emoji.emoji + '">' + render + '</span>'
 		btn.addEventListener('click', onClick.bind())
 		if (options.iconSize) btn.style.fontSize = options.iconSize
 		cnt.appendChild(btn)
 	}
 
 	const onClick = function(e) {
-		const value = e.target.querySelector('span').innerText
+		const span = e.target.querySelector('span')
+		const value = span.innerText
+		const org = span.getAttribute('data-emoji')
 		_core.functions.insertHTML(value, true)
 		if (options.favorites) {
-			if (Emojis.registerEmoji(value)) {
+			if (Emojis.registerEmoji(org)) {
 				updateFavorites()
 			}
 		}
@@ -498,6 +560,6 @@ const emojisPlugin = (function() {
 		add: add
 	}
 
-})();
+})(Emojis);
 
 
