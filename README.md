@@ -6,7 +6,7 @@ Add a Unicode Emojis submenu to the SunEditor toolbar
 
 The plugin comes with several useful features 
 
-- Test for local browser support, also trims out fallbacks; by that the browsers entire range is used 
+- Tests for local browser support, also trims out fallbacks; by that the browsers entire range is used 
 without showing "odd" emojis
 
 - A built-in cache speeds up loading and rendering 
@@ -83,7 +83,7 @@ Group captions. By default the same as the group names. Use names as localizatio
 ```javascript
 emojis: {
   names: ['Sonrisas y emociones', 'Actividades', 'Animales y naturaleza', 'Banderas',	
-      'Comida y bebida', 'Objetos', 'Personas y cuerpo', 'Símbolos', 'Viajes y lugares'	]
+      'Comida y bebida', 'Objetos', 'Personas y cuerpo', 'Símbolos', 'Viajes y lugares']
 }
 ```
 
@@ -97,7 +97,7 @@ emojis: {
 ```
 
 ### iconSize
-The ```font-size``` of emojis shown in groups or by search. 
+The ```font-size``` of emojis shown in groups or by search
 
 ```javascript
 emojis: {
