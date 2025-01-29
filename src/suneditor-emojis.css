@@ -4,6 +4,10 @@
 	font-family: helvetica;
 }
 
+.se-emojis .sun-editor .se-list-layer button {
+	width: auto;
+}
+
 .se-emojis button {
 	font-weight: 400;
 	color: #212529;
@@ -20,7 +24,7 @@
 	border-radius: .25rem;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 	font-size: inherit;
-	display: inline;
+	display: block;
 	width: auto !important;
 	float: left;
 }
@@ -45,9 +49,11 @@
 	padding: 0;
 	cursor: pointer;
 	font-weight: bold;
-	background-color: #ebebeb;
+	XXbackground-color: #ebebeb;
+	background:	rgba(245, 245, 245, 1);
 	color: #666;
-	border: 1px solid #bbb;
+	border: 1px solid #ddd;
+	margin-top: 5px;
 }
 .se-emojis i.clear-favorites:hover {
 	border: 1px solid #dadada;
@@ -65,7 +71,8 @@
 	font-weight: bold;
 	width: 100%;
 	min-width: 100%;
-	background: #ebebeb;
+	XXbackground: #ebebeb;
+	background:	rgba(245, 245, 245, 1);
 	color: gray;
 }
 
@@ -84,7 +91,7 @@
 }
 .se-emojis .topmenu input,
 .se-emojis .topmenu span {
-	background-color: rgba(250, 250, 250, 1);
+	background-color: rgba(245, 245, 245, 1);
 }
 .se-emojis .topmenu .topmenu-item {
 	margin-top: 2px;
