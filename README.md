@@ -26,9 +26,9 @@ Now include the ```emojis``` plugin to ```plugins``` and add a ```'emojis'``` bu
 ```javascript
 const editor = SUNEDITOR.create('editor', {
   ...     
-  plugins: [..., emojis],
-  buttonList: [...,'emojis'],
-  emojis: { ... },
+  plugins: [.., emojis],
+  buttonList: [..,'emojis'],
+  emojis: { .. },
   ...
 })  
 ```
@@ -56,7 +56,7 @@ emojis: {
 
 ### groups
 
-Specify the type of emojis to include in the dropdown. The emojis are ordered into their official super 
+Specifies the kinds of emojis to include in the dropdown. The emojis are ordered into their official super 
 group names. If ```groups``` are not set, all groups are included
 
 ```javascript
@@ -80,7 +80,7 @@ Here is an overview of the different groups and their current number of emojis
 🚫 | ```'Symbols'``` | 224
 🚀 | ```'Travel & Places'``` | 218
 
-No browser or reader will ever support the entire scope of unicode, and never implement
+No browser or reader will ever support the entire scope of unicode, and will never implement
 each and every unicode emoji <q><em>correct</em></q> or as intended. So the plugin will only be able 
 to display those emojis the local browser support. The plugin automatically detects
 not supported emojis as well as emojis relying on fallbacks; see the ```showFallbacks``` option to enable browser fallbacks.
@@ -98,7 +98,7 @@ emojis: {
 💡 If you pass ```captions: false``` all emojis are shown continuously after each other without breaking headers
 
 ### showRecent
-When ```true``` clicked emojis are remembered and shown as first choice in the dropdown
+When ```true``` clicked emojis are remembered (in ```localStorage```) and shown as first choice in the dropdown
 
 ```javascript
 emojis: {
