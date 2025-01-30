@@ -1,6 +1,8 @@
 # suneditor-emojis
 
-Add a Unicode Emojis submenu to the SunEditor toolbar
+Add a Unicode Emojis submenu to the SunEditor toolbar.
+
+Playground **https://suneditor-emojis.github.io**
 
 ![SunEditor Emojis plugin](assets/sample.png)
 
@@ -31,7 +33,7 @@ const editor = SUNEDITOR.create('editor', {
 ```
 
 ## Options
-You may want to alter the defaults, change settings by an ```emojis``` option :
+Optionally You can customise the dropdown through an ```emojis``` option
 ```javascript
 emojis: {
   groups: [array],
@@ -90,8 +92,9 @@ emojis: {
       'Comida y bebida', 'Objetos', 'Personas y cuerpo', 'Símbolos', 'Viajes y lugares']
 }
 ```
-💡 An empty string ```''``` in the array means the header should not be shown; 
-if you pass ```captions: false``` all headers are hidden. 
+💡 An empty string ```''``` in the array means the header should not be shown
+
+💡 If you pass ```captions: false``` all emojis are shown continuously after each other without breaking headers
 
 ### showRecent
 When ```true``` clicked emojis are remembered and shown as first choice in the dropdown
