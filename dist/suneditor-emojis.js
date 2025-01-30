@@ -223,8 +223,8 @@ const emojisPlugin = (function(Emojis) {
 	let _core = undefined
 	let options = {
 		groups: default_groups.slice(),
-		names: default_groups.slice(),
-		recent: true,
+		captions: default_groups.slice(),
+		showRecent: true,
 		iconSize: '1.5rem',
 		skinTone: 'neutral',
 		topmenu: {
@@ -268,9 +268,10 @@ const emojisPlugin = (function(Emojis) {
 			}
 		}
 		if (_core.options.emojis) {
+			if (_core.options.emojis.captions === false) _core.options.emojis.captions = Array(default_groups.length).fill('')
 			options = Object.assign({}, options, _core.options.emojis)
 			test('groups', 'array')
-			test('names', 'array')
+			test('captions', 'array')
 			test('iconSize', 'string')
 			test('skinTone', 'string')
 			test('showFallbacks', 'boolean')
@@ -292,9 +293,9 @@ const emojisPlugin = (function(Emojis) {
 			html += '</div>'
 		}
 
-		if (options.recent) {
+		if (options.showRecent) {
 			options.groups.unshift('')
-			options.names.unshift('')
+			options.captions.unshift('')
 			let s = 'style="' //padding-top:.5rem;'
 			s += topmenu ? 'margin-top:2.2rem;"' : '"'
 			html += '<div name="' + recent_name + '" ' + s + '></div>'
@@ -308,8 +309,10 @@ const emojisPlugin = (function(Emojis) {
 			if (group) {
 				if (default_groups.includes(group)) {
 					html += '<div class="se-emojis-group" style="font-size:' + options.iconSize + ';">'
-					html += '<header>' + (options.names[i] || group) + '</header>'
-					html += '<div name="' + group + '" XXXstyle="display:inline-grid;grid-auto-flow: column; "></div>'
+					if (options.captions[i]) {
+						html += '<header>' + (options.captions[i] || group) + '</header>'
+					}
+					html += '<div name="' + group + '"></div>'
 					html += '</div>'
 				} else {
 					console.warn('group "'+ group + '" is not valid')
@@ -519,7 +522,7 @@ const emojisPlugin = (function(Emojis) {
 		} else {
 			_core.functions.insertHTML(value, true)
 		}
-		if (options.recent) {
+		if (options.showRecent) {
 			if (Emojis.registerEmoji(org)) {
 				updateRecent()
 			}

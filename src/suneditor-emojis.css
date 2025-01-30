@@ -1,7 +1,15 @@
+.se-emoji {
+	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
 .se-emojis {
 	overflow: auto;
 	position: relative;
 	font-family: helvetica;
+}
+
+.se-emojis span.emoji {
+	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 .se-emojis .sun-editor .se-list-layer button {
@@ -36,10 +44,6 @@
 
 .se-emojis button.btn-emoji:hover {
 	background-color: #dadada;
-}
-
-.se-emojis span.emoji {
-	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 .se-emojis .clear-favorites {
