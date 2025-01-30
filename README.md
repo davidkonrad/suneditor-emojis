@@ -20,20 +20,21 @@ but are using a local version trimmed by 75% (less than 100k). By that the plugi
 Include JS and CSS files from ```/dist``` :
 ```html
 <script src="suneditor-emojis.js"></script>
+<link href="suneditor-emojis.css" rel="stylesheet" type="text/css">
 ```
-Now add ```emojisPlugin``` to the ```plugins``` option, and add the ```emojis``` button to ```buttonList``` : 
+Now include the ```emojis``` plugin to ```plugins``` and add a ```'emojis'``` button to ```buttonList``` : 
 ```javascript
 const editor = SUNEDITOR.create('editor', {
   ...     
-  plugins: [emojisPlugin],
-  buttonList: ['emojis'],
+  plugins: [..., emojis],
+  buttonList: [...,'emojis'],
   emojis: { ... },
   ...
 })  
 ```
 
 ## Options
-Optionally You can customise the dropdown through an ```emojis``` option
+Optionally you can customise the dropdown through an ```emojis``` option
 ```javascript
 emojis: {
   groups: [array],
@@ -60,7 +61,7 @@ group names. If ```groups``` are not set, all groups are included
 
 ```javascript
 emojis: {
-  groups: ['Smileys & Emotion',  'Activities', 'Animals & Nature', 'Flags', 
+  groups: ['Smileys & Emotion', 'Activities', 'Animals & Nature', 'Flags', 
       'Food & Drink', 'Objects', 'People & Body', 'Symbols', 'Travel & Places']
   }       
 }
@@ -79,9 +80,9 @@ Here is an overview of the different groups and their current number of emojis
 🚫 | ```'Symbols'``` | 224
 🚀 | ```'Travel & Places'``` | 218
 
-No browser or reader will ever support the entire scope of unicode, and will never implement
+No browser or reader will ever support the entire scope of unicode, and never implement
 each and every unicode emoji <q><em>correct</em></q> or as intended. So the plugin will only be able 
-to show emojis the local browser support. The plugin automatically detect
+to display those emojis the local browser support. The plugin automatically detects
 not supported emojis as well as emojis relying on fallbacks; see the ```showFallbacks``` option to enable browser fallbacks.
 
 ### captions
