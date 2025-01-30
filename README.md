@@ -35,8 +35,8 @@ You may want to alter the defaults, change settings by an ```emojis``` option :
 ```javascript
 emojis: {
   groups: [array],
-  names: [array],
-  favorites: true,
+  captions: [array],
+  showRecent: true,
   iconSize: 'string',
   skinTone: 'string',
   topmenu: {
@@ -45,12 +45,13 @@ emojis: {
     skinTone: true
   },
   showFallbacks: false,
+  tagName: 'span',
   width: 'string',
   height: 'string'
 }
 ```
 
-### ```groups```
+### groups
 
 Specify the type of emojis to include in the dropdown. The emojis are ordered into their official super 
 group names. If ```groups``` are not set, all groups are included
@@ -76,23 +77,28 @@ Here is an overview of the different groups and their current number of emojis
 🚫 | ```'Symbols'``` | 224
 🚀 | ```'Travel & Places'``` | 218
 
-Since this is based on the latest version of the Unicode standard, no browser is able to render all emojis correct. 
+No browser or reader will ever support the entire scope of unicode, and will never implement
+each and every unicode emoji <q><em>correct</em></q> or as intended. So the plugin will only be able 
+to show emojis the local browser support. The plugin automatically detect
+not supported emojis as well as emojis relying on fallbacks; see the ```showFallbacks``` option to enable browser fallbacks.
 
-### ```names```
-Group captions. By default the same as the group names. Use names as localization of emoji group names. Here an example of spanish group names 
+### captions
+Group captions. By default the same as the group names. Use names as localization of emoji group names. Here an example of group captions in spanish 
 ```javascript
 emojis: {
-  names: ['Sonrisas y emociones', 'Actividades', 'Animales y naturaleza', 'Banderas',	
+  captions: ['Sonrisas y emociones', 'Actividades', 'Animales y naturaleza', 'Banderas',	
       'Comida y bebida', 'Objetos', 'Personas y cuerpo', 'Símbolos', 'Viajes y lugares']
 }
 ```
+💡 An empty string ```''``` in the array means the header should not be shown; 
+if you pass ```captions: false``` all headers are hidden. 
 
-### favorites
+### showRecent
 When ```true``` clicked emojis are remembered and shown as first choice in the dropdown
 
 ```javascript
 emojis: {
-  favorites: true
+  showRecent: true
 }
 ```
 
