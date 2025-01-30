@@ -352,7 +352,7 @@ const emojisPlugin = (function(Emojis) {
 				cnt.querySelectorAll('.btn-iconsize').forEach(function(btn) {
 					btn.onclick = function() {
 						let fs = parseFloat(options.iconSize)
-						fs = btn.getAttribute('data-type') === '+' ? (fs + 0.25) : (fs - 0.25)
+						fs = btn.getAttribute('data-type') === '+' ? (fs + 0.2) : (fs - 0.2)
 						fs+= 'rem'
 						document.querySelectorAll('.se-emojis .se-emojis-group').forEach(function(group) {
 							group.style.fontSize = fs
@@ -505,25 +505,20 @@ const emojisPlugin = (function(Emojis) {
 		btn.className = 'btn-emoji'
 		btn.type = 'button'
 		btn.title = name
-		//.replace(/[\u200B-\u200D\uFEFF]/g, '')
 		btn.innerHTML = '<span class="emoji" data-emoji="' + emoji.emoji + '">' + render + '</span>'
 		btn.addEventListener('click', onClick.bind())
 		cnt.appendChild(btn)
 	}
 
-	//insertHTML: function (html, notCleaningData, checkCharCount, rangeSelection) {
 	const onClick = function(e) {
 		const span = e.target.querySelector('span')
-		const value = span.innerText //.replace(/[\u200B-\u200D\uFEFF]/g, '')
+		const value = span.innerText
 		const org = span.getAttribute('data-emoji')
-		_core.functions.insertHTML(value, true)
-/*
 		if (typeof options.tagName === 'string') {
-			_core.functions.insertHTML(`<${options.tagName} class="se-emoji">${value}</${options.tagName}> `, true, true)
+			_core.functions.insertHTML(`<${options.tagName} class="se-emoji">${value}</${options.tagName}>&zwnj;`, true, true)
 		} else {
 			_core.functions.insertHTML(value, true)
 		}
-*/
 		if (options.recent) {
 			if (Emojis.registerEmoji(org)) {
 				updateRecent()
