@@ -2,9 +2,9 @@
 
 Add a Unicode Emojis submenu to the SunEditor toolbar.
 
-Playground **https://suneditor-emojis.github.io**
+### Playground **https://suneditor-emojis.github.io**
 
-![SunEditor Emojis plugin](assets/sample.png)
+![SunEditor Emojis plugin](assets/suneditor-emojis-sample.png)
 
 The plugin comes with several useful features 
 
@@ -53,6 +53,7 @@ emojis: {
   height: 'string'
 }
 ```
+<hr>
 
 #### groups
 
@@ -66,6 +67,7 @@ emojis: {
   }       
 }
 ```
+<hr>
 
 #### captions
 Group captions. By default the same as the group names. Use names as localization of emoji group names. Here an example of group captions in spanish 
@@ -79,6 +81,8 @@ emojis: {
 
 💡 If you pass ```captions: false``` all emojis are shown continuously after each other without breaking headers
 
+<hr>
+
 #### showRecent
 When ```true``` clicked emojis are remembered (in ```localStorage```) and shown as first choice in the dropdown
 
@@ -87,6 +91,8 @@ emojis: {
   showRecent: true
 }
 ```
+
+<hr>
 
 #### iconSize
 The ```font-size``` of emojis shown in groups or by search
@@ -98,6 +104,9 @@ emojis: {
 ```
 
 💡 You can also enable ```topmenu.iconSize``` and let the user choose the size for themselves.
+
+
+<hr>
 
 #### skinTone 🖖 🖖🏻 🖖🏼 🖖🏽 🖖🏾 🖖🏿
 Some ```'People & Body'``` emojis can be styled with six different 'skintones': 
@@ -112,6 +121,9 @@ emojis: {
 
 💡 You can also enable ```topmenu.skinTone``` and let the user choose a skintone for themselves.
 
+
+<hr>
+
 #### showFallbacks
 Newer emojis may have a fallback that the browser can show as substitute if the unicode is not supported.
 Those will often be rendered as two emojis side by side, like 🍄 🟫 as fallback for 
@@ -122,6 +134,8 @@ emojis: {
   showFallbacks: false
 }
 ```
+
+<hr>
 
 #### width, height
 The SunEditor submenu dropdown will automatically fit the screen height and edge with the editor. 
