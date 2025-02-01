@@ -2,7 +2,7 @@
 
 Add a Unicode Emojis submenu to the SunEditor toolbar.
 
-### Playground **https://suneditor-emojis.github.io**
+Demo here → **https://suneditor-emojis.github.io**
 
 ![SunEditor Emojis plugin](assets/suneditor-emojis-sample.png)
 
@@ -17,24 +17,32 @@ without showing "odd" emojis
 but are using a local version trimmed by 75% (less than 100k). By that the plugin are updated according to the latest version of the unicode standard (currently 16.0). 
 
 ## Usage
-Include JS and CSS files from ```/dist``` :
+Include JavaScript and CSS files from ```/dist``` :
 ```html
-<script src="suneditor-emojis.js"></script>
+<script src="suneditor-emojis.min.js"></script>
 <link href="suneditor-emojis.css" rel="stylesheet" type="text/css">
 ```
-Now include the ```emojis``` plugin to ```plugins``` and add a ```'emojis'``` button to ```buttonList``` : 
+Now add ```emojis``` to SunEditors' ```plugins``` option, and add a ```'emojis'``` button to ```buttonList```  
 ```javascript
 const editor = SUNEDITOR.create('editor', {
   ...     
-  plugins: [.., emojis],
-  buttonList: [..,'emojis'],
-  emojis: { .. },
+  plugins: [emojis],
+  buttonList: ['emojis'],
   ...
 })  
 ```
+#### important
+Add the following CSS rule to any page that shows text produced by SunEditor, but outside the SunEditor context, I.e "in production" 
+
+```css
+.se-emoji {
+   font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
+}
+```
 
 ## Options
-Optionally you can customise the dropdown through an ```emojis``` option
+If needed the dropdown can be customised in various ways through the ```emojis``` option
+
 ```javascript
 emojis: {
   groups: [array],
@@ -177,8 +185,3 @@ apple | https://emojipedia.org/apple | Apple Color Emoji
 
 To be sure emojis are shown as best as possible, always set ```tagName``` to for example ```span```, and include the following CSS rule in production (when the text with emojis is shown outside SunEditor context) :
 
-```css
-.se-emoji {
-   font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
-}
-```

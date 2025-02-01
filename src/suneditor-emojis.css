@@ -46,7 +46,8 @@
 	background-color: #dadada;
 }
 
-.se-emojis .clear-favorites {
+.se-emojis .clear-recent {
+	display: inline-block;
 	float: left;
 	line-height: .6rem;
 	height: .6rem;
@@ -58,7 +59,7 @@
 	border: 1px solid #ddd;
 	margin-top: 5px;
 }
-.se-emojis i.clear-favorites:hover {
+.se-emojis i.clear-recent:hover {
 	border: 1px solid #dadada;
 	color: maroon;
 }
@@ -104,7 +105,7 @@
 .se-emojis .btn-iconsize, 
 .se-emojis .btn-skintone {
 	font-size: normal;
-	padding-top: 2px;
+	padding-top: 3px;
 	padding-left: 1px;
 	padding-right: 1px;
 	padding-bottom: 2px;

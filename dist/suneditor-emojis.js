@@ -350,9 +350,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 					btn.onclick = function() {
 						let fs = parseFloat(options.iconSize)
 						const u = options.iconSize.replace(fs, '')
-						//let fs = parseFloat(options.iconSize)
-						console.log(fs, u)
-						fs = btn.getAttribute('data-type') === '+' ? (fs + 0.2) : (fs - 0.2)
+						fs = btn.getAttribute('data-type') === '+' ? (fs + 0.2) : (fs - 0.2) //TODO: implement step option
 						fs+= u
 						document.querySelectorAll('.se-emojis .se-emojis-group').forEach(function(group) {
 							group.style.fontSize = fs
@@ -440,7 +438,6 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		res.innerHTML = '<header><q>' + term + '</q></header><div></div>'
 		res.style.display = 'block'
 		for (const [i,group] of options.groups.entries()) {	// eslint-disable-line no-unused-vars
-			//if (group) document.querySelector('div[name="' + group + '"]').parentElement.style.visibility = 'collapse'
 			if (group) document.querySelector('div[name="' + group + '"]').parentElement.style.display = 'hidden'
 		}
 		document.querySelector('.se-emojis-layer').scrollTop = 0
@@ -448,7 +445,6 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 
 	const endSearch = function() {
 		for (const [i,group] of options.groups.entries()) {	// eslint-disable-line no-unused-vars
-			//document.querySelector('div[name="' + (group || recent_name) + '"]').parentElement.style.visibility = 'visible'
 			document.querySelector('div[name="' + (group || recent_name) + '"]').parentElement.style.display = 'block'
 		}
 		const res = document.querySelector('div[name="' + result_name + '"]')
@@ -528,7 +524,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		const value = span.innerText
 		const org = span.getAttribute('data-emoji')
 		if (typeof options.tagName === 'string') {
-			_core.functions.insertHTML(`<${options.tagName} class="se-emoji">${value}</${options.tagName}>&zwnj;`, true, true)
+			_core.functions.insertHTML(`<${options.tagName} class="se-emoji">${value}</${options.tagName}>&zwj;`, true, true)
 		} else {
 			_core.functions.insertHTML(value, true)
 		}
