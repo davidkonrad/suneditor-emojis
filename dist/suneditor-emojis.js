@@ -523,7 +523,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		const span = e.target.querySelector('span')
 		const value = span.innerText
 		const org = span.getAttribute('data-emoji')
-		if (typeof options.tagName === 'string') {
+		if (typeof options.tagName === 'string' && options.tagName !== '') {
 			_core.functions.insertHTML(`<${options.tagName} class="se-emoji">${value}</${options.tagName}>&zwj;`, true, true)
 		} else {
 			_core.functions.insertHTML(value, true)

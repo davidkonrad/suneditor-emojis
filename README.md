@@ -2,7 +2,7 @@
 
 Add a Unicode Emojis submenu to the SunEditor toolbar.
 
-Demo here → **https://suneditor-emojis.github.io**
+Demo -> **https://suneditor-emojis.github.io**
 
 ![SunEditor Emojis plugin](assets/suneditor-emojis-sample.png)
 
@@ -129,6 +129,26 @@ emojis: {
 
 💡 You can also enable ```topmenu.skinTone``` and let the user choose a skintone for themselves.
 
+
+<hr>
+
+#### tagName
+While not strictly necessary it is recommended to wrap emojis into a HTML tag like ```<span>```. 
+
+Most unicode emojis are displayed fine in HTML and in mixed text millieus, but the display can be suppressed
+if the current DOM font-family also support the unicode emoji. For example 
+"smiling face" <span style='font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";'>☺️</span> 
+may be substituted with <span style="font-size:large;">☺️</span> when using a helvetica font familiy.
+
+By wrappping emojis into a tag we are sure they are rendered using a correct font family: 
+```"Noto Color Emoji"```, ```"Apple Color Emoji"``` or ```"Segoe UI Emoji"```.
+
+
+```javascript
+emojis: {
+  tagName: 'span'
+}
+```
 
 <hr>
 
