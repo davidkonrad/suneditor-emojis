@@ -2,7 +2,7 @@
 
 Add a Unicode Emojis submenu to the SunEditor toolbar.
 
-Demo -> **https://suneditor-emojis.github.io**
+Demo ⇢ **https://suneditor-emojis.github.io**
 
 ![SunEditor Emojis plugin](assets/suneditor-emojis-sample.png)
 
@@ -129,6 +129,22 @@ emojis: {
 
 💡 You can also enable ```topmenu.skinTone``` and let the user choose a skintone for themselves.
 
+<hr>
+
+#### topmenu
+Adds a semi transparent header to the dropdown containing user controls
+
+```javascript
+emojis: {
+  topmenu: {
+    search: true,
+    iconSize: true,
+    skinTone: true
+  }
+}
+```
+
+```search``` enables a tiny input form,where you can filter out emojis by their names.
 
 <hr>
 
