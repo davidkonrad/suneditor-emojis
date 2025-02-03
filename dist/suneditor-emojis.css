@@ -1,3 +1,4 @@
+/* add the below rule to your CSS */
 .se-emoji {
 	font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
 }
@@ -32,9 +33,6 @@
 	border-radius: .25rem;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 	font-size: inherit;
-	display: block;
-	width: auto !important;
-	float: left;
 }
 
 .se-emojis button.btn-emoji {
@@ -121,3 +119,35 @@
 .se-emojis .btn-skintone:hover {
 	background-color: #dadada;
 }
+
+.se-emojis-group div {
+	width: 100%;
+	padding: .4rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: left;
+}
+.se-emojis-group div button {
+	flex: 1;
+}
+.se-emojis-recent button {
+	display: inline-block;
+	width: auto !important;
+	float: left;
+}	
+
+.se-emojis-recent {
+	display: block;
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #ebebeb !important;
+}
+
+.se-emojis-result {
+	display: hidden;
+	float: left;
+	border-bottom: 1px solid #ebebeb !important;
+	width: 100%;
+}
+
+

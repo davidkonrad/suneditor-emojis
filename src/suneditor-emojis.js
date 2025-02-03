@@ -242,8 +242,8 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		setOptions()
 		let listDiv = setSubmenu.call(core)
 		populateEmojis(listDiv)
+		if (options.showRecent) updateRecent(listDiv)
 		setTopmenu(listDiv.querySelector('div[name="' + topmenu_name + '"]'))
-		updateClearRecent(listDiv.querySelector('div[name="' + recent_name + '"]'))
 		core.initMenuTarget(name, targetElement, listDiv)
 		if (options.height) {
 			document.querySelector('.se-emojis').style.height = options.height
@@ -265,13 +265,15 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 			}
 		}
 		if (_core.options.emojis) {
-			if (_core.options.emojis.captions === false) _core.options.emojis.captions = Array(default_groups.length).fill('')
-			options = Object.assign({}, options, _core.options.emojis)
+			//if (_core.options.emojis.captions === false) _core.options.emojis.captions = Array(default_groups.length).fill('')
+			options = Object.assign({}, default_options, _core.options.emojis)
+/*
 			test('groups', 'array')
 			test('captions', 'array')
 			test('iconSize', 'string')
 			test('skinTone', 'string')
 			test('showFallbacks', 'boolean')
+*/
 		}
 	}
 
@@ -280,61 +282,85 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		let listDiv = this.util.createElement('div')
 		listDiv.className = 'se-submenu se-list-layer se-emojis-layer'
 		listDiv.style.paddingTop = 0
-
 		let html = '<div class="se-list-inner">'
 		html += '<div class="se-emojis">'
-
 		if (topmenu) {
-			html += '<div>'
-			html += '<div name="' + topmenu_name + '" class="topmenu"></div>'
-			html += '</div>'
+			html += `<div name="${topmenu_name}" class="topmenu"></div>`
 		}
-
 		if (options.showRecent) {
-			options.groups.unshift('')
-			options.captions.unshift('')
-			let s = 'style="' //padding-top:.5rem;'
-			s += topmenu ? 'margin-top:2.2rem;"' : '"'
-			html += '<div name="' + recent_name + '" ' + s + '></div>'
+			const s = topmenu ? 'style="margin-top:2.2rem;"' : ''
+			html += `<div name="${recent_name}" ${s} class="se-emojis-recent"></div>`
 		}
-
 		if (topmenu && options.topmenu.search) {
-			html += '<div name="' + result_name + '" class="se-emojis-group" style="font-size:' + options.iconSize + ';float:left;border-top:1px solid #dadada;width:100%;"></div>'
+			html += `<div name="${result_name}" class="se-emojis-group se-emojis-result" style="font-size:${options.iconSize};"></div>`
 		}
-
-		for (const [i,group] of options.groups.entries()) {
-			if (group) {
+		if (options.captions) {
+			for (const [i,group] of options.groups.entries()) {
 				if (default_groups.includes(group)) {
-					html += '<div class="se-emojis-group" style="font-size:' + options.iconSize + ';">'
+					html += `<div class="se-emojis-group" style="font-size:${options.iconSize};">`
 					if (options.captions[i]) {
-						html += '<header>' + (options.captions[i] || group) + '</header>'
+						html += `<header>${options.captions[i]}</header>`
 					}
-					html += '<div name="' + group + '"></div>'
-					html += '</div>'
+					html += `<div name="${group}"></div></div>`
 				} else {
 					console.warn('group "'+ group + '" is not valid')
 				}
 			}
+		} else {
+			html += `<div class="se-emojis-group" style="font-size:${options.iconSize};"><div name="emojis"></div></div>`
 		}
-		html += '</div>'
 		listDiv.innerHTML = html 
 		return listDiv
+	}
+
+	//hack to fix "last flex row should be left aligned" problem
+	const fixLastRow = function(cnt) {
+		for (let i=0; i<9; i++) { 
+			cnt.insertAdjacentHTML('beforeend', '<span style="flex:1;"></span>')
+		}
 	}
 
 	const populateEmojis = function(listDiv) {
 		const reset = typeof listDiv === 'undefined'
 		listDiv = listDiv || document.querySelector('.se-emojis-layer')
-		for (let type in Emojis.emojis) {
-			const cnt = listDiv.querySelector('div[name="' + (type || recent_name) + '"]')
-			if (reset && cnt) cnt.innerText = ''
-			if (Emojis.emojis[type] && Emojis.emojis[type].length) {
-				Emojis.emojis[type].forEach(function(emoji) {
-					if (emoji && cnt) createBtn(emoji, cnt)
-				})
-			} else {
-				console.log(`error: emoji does not exist for type '${type}'`)
+		if (options.captions) {
+			for (let group of options.groups) {
+				const cnt = listDiv.querySelector('div[name="' + group + '"]')
+				if (reset && cnt) cnt.innerText = ''
+				if (Emojis.emojis[group] && Emojis.emojis[group].length) {
+					Emojis.emojis[group].forEach(function(emoji) {
+						if (emoji && cnt) createBtn(emoji, cnt)
+					})
+					fixLastRow(cnt)
+				} else {
+					console.log(`error: emoji does not exist for type '${type}'`)
+				}
 			}
+		} else {
+			const cnt = listDiv.querySelector('div[name="emojis"]')
+			if (reset && cnt) cnt.innerText = ''
+			for (let group of options.groups) {
+				if (Emojis.emojis[group] && Emojis.emojis[group].length) {
+					Emojis.emojis[group].forEach(function(emoji) {
+						if (emoji && cnt) createBtn(emoji, cnt)
+					})
+				} else {
+					console.log(`error: emoji does not exist for type '${type}'`)
+				}
+			}
+			fixLastRow(cnt)
 		}
+	}
+
+	const updateRecent = function(listDiv) {
+		const reset = typeof listDiv === 'undefined'
+		listDiv = listDiv || document.querySelector('.se-emojis-layer')
+		const cnt = listDiv.querySelector('.se-emojis div[name="' + recent_name + '"]')
+		if (reset) cnt.innerText = ''
+		if (Emojis.emojis && Emojis.emojis['']) Emojis.emojis[''].forEach(function(emoji) {
+			createBtn(emoji, cnt)
+		})
+		updateClearRecent(cnt)
 	}
 
 	const setTopmenu = function(cnt) {
@@ -363,10 +389,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 
 		const initSearch = function() {
 			const glass = '  🔍'
-			const html = 
-			`<div class="">
-				<input class="se-emojis-search" type="search" placeholder="${glass}" dir="rtl" max-length="7" size="7" spellcheck="false">
-			</div>`
+			const html = `<div class=""><input class="se-emojis-search" type="search" placeholder="${glass}" dir="rtl" max-length="7" size="7" spellcheck="false"></div>`
 			cnt.insertAdjacentHTML('beforeEnd', html)
 			const input = cnt.querySelector('.se-emojis-search')
 			input.onclick = function() {
@@ -437,16 +460,16 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		const res = document.querySelector('div[name="' + result_name + '"]')
 		res.innerHTML = '<header><q>' + term + '</q></header><div></div>'
 		res.style.display = 'block'
-		for (const [i,group] of options.groups.entries()) {	// eslint-disable-line no-unused-vars
-			if (group) document.querySelector('div[name="' + group + '"]').parentElement.style.display = 'hidden'
-		}
+		document.querySelectorAll('.se-emojis-group').forEach(function(div) {
+			div.style.display = 'hidden'
+		})
 		document.querySelector('.se-emojis-layer').scrollTop = 0
 	}
 
 	const endSearch = function() {
-		for (const [i,group] of options.groups.entries()) {	// eslint-disable-line no-unused-vars
-			document.querySelector('div[name="' + (group || recent_name) + '"]').parentElement.style.display = 'block'
-		}
+		document.querySelectorAll('.se-emojis-group').forEach(function(div) {
+			div.style.display = 'block'
+		})
 		const res = document.querySelector('div[name="' + result_name + '"]')
 		if (!res) return
 		res.innerText = ''
@@ -469,7 +492,11 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 				}
 			})
 		}
-		if (cnt.innerText === '') cnt.innerHTML = '&nbsp;'
+		if (cnt.innerText === '') {
+			cnt.innerHTML = '<small>... &nbsp;</small>'
+		} else {
+			fixLastRow(cnt)
+		}
 	}
 
 	const updateClearRecent = function(cnt) {
@@ -483,15 +510,6 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 			updateRecent()
 		}
 		cnt.appendChild(btn)			
-	}
-
-	const updateRecent = function() {
-		const cnt = document.querySelector('.se-emojis div[name="' + recent_name + '"]')
-		cnt.innerText = ''
-		if (Emojis.emojis && Emojis.emojis['']) Emojis.emojis[''].forEach(function(emoji) {
-			createBtn(emoji, cnt)
-		})
-		updateClearRecent(cnt)
 	}
 
 	const createBtn = function(emoji, cnt) {
