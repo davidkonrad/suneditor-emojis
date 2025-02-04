@@ -14,9 +14,6 @@ without showing "odd" emojis
 
 - A built-in cache speeds up loading and rendering 
 
-- Follows <b>unicode-emoji-json</b>, <a href="https://github.com/muan/unicode-emoji-json">https://github.com/muan/unicode-emoji-json</a>, 
-but are using a local version trimmed by 75% (less than 100k). By that the plugin are updated according to the latest version of the unicode standard (currently 16.0). 
-
 ## Usage
 Include JavaScript and CSS files from ```/dist``` :
 ```html
@@ -220,7 +217,17 @@ chrome | https://emojipedia.org/google | Noto Color Emoji
 windows | https://emojipedia.org/microsoft | Segoe UI Emoji
 apple | https://emojipedia.org/apple | Apple Color Emoji
 
+## Credits
+Suneditor-emojis is a plugin made for the excellent <b>SunEditor</b> wysiwyg editor https://github.com/JiHong88/suneditor.
+
+Thanks to <b>unicode-emoji-json</b>, https://github.com/muan/unicode-emoji-json, who maintain updated lists of all emojis.
+
+
 ## License
 Suneditor-emojis is released under MIT license. You are free to use, modify and distribute this software, as long as the copyright header is left intact.
+
+
+
+
 
 
