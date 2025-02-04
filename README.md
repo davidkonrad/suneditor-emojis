@@ -1,6 +1,7 @@
 # suneditor-emojis
 
-Add a Unicode Emojis submenu to the SunEditor toolbar.
+Add a Unicode Emojis submenu to the SunEditor toolbar. The plugin covers the entire 
+Unicode standard and supports 'skin tone' where possible. 
 
 Demo ⇢ **https://suneditor-emojis.github.io**
 
@@ -219,5 +220,7 @@ chrome | https://emojipedia.org/google | Noto Color Emoji
 windows | https://emojipedia.org/microsoft | Segoe UI Emoji
 apple | https://emojipedia.org/apple | Apple Color Emoji
 
-To be sure emojis are shown as best as possible, always set ```tagName``` to for example ```span```, and include the following CSS rule in production (when the text with emojis is shown outside SunEditor context) :
+## License
+Suneditor-emojis is released under MIT license. You are free to use, modify and distribute this software, as long as the copyright header is left intact.
+
 
