@@ -152,7 +152,7 @@ While not strictly necessary it is recommended to wrap emojis into a HTML tag li
 Most unicode emojis are displayed fine in HTML and in mixed text millieus, but the display can be suppressed
 if the current DOM font-family also support the unicode themselves. For example 
 "smiling face" <img src="assets/smiling-face.png" width="20" style="position:relative;top:.4rem;">
-may be substituted with <span style="font-size:large;">☺️</span> when using a helvetica font familiy.
+may be substituted with <img src="assets/smiling-face-alt.png" width="20" style="position:relative;top:.4rem;"> when using a helvetica font familiy.
 
 By wrappping emojis into a tag we are sure they are rendered using a correct font family: 
 ```"Noto Color Emoji"```, ```"Apple Color Emoji"``` or ```"Segoe UI Emoji"```.
