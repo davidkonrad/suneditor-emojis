@@ -85,10 +85,11 @@
 	align-content: flex-end;
 	background-color: #fafafa;
 	background-color: rgba(245, 245, 245, 0.7);
-	padding: 5px;
+	padding-top: 2px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 10px;
 	margin-bottom: 5px;
-	border-bottom: 1px inset #ebebeb;
-	float: right;
 }
 .se-emojis .topmenu input,
 .se-emojis .topmenu span {
@@ -102,7 +103,8 @@
 
 .se-emojis .btn-iconsize, 
 .se-emojis .btn-skintone {
-	font-size: normal;
+	font-size: small;
+	line-height: initial;
 	padding-top: 3px;
 	padding-left: 1px;
 	padding-right: 1px;
@@ -110,6 +112,7 @@
 	cursor: pointer;
 	border: 1px dotted #ebebeb;
 	border-radius: 4px;
+	opacity: .7;
 }
 .se-emojis .btn-skintone-active {
 	border: 1px solid #ccc;

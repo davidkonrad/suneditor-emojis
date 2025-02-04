@@ -16,8 +16,12 @@ const Emojis = (function() {	// eslint-disable-line no-unused-vars
 	let emoji_width = undefined
 
 	const init = function() {
-		fetchSupported()
-		fetchEmojis()
+		return new Promise(function(resolve) {
+			fetchSupported()
+			fetchEmojis().then(function() {
+				resolve(emojis)
+			})
+		})
 	}
 
 	const parse = function(s) {
@@ -133,16 +137,21 @@ const Emojis = (function() {	// eslint-disable-line no-unused-vars
 			emoji[to] = emoji[from]
 			delete emoji[from]
 		}
-		const r = JSON.parse(response)
-		emojis[''] = getRegistered()
-		for (const type in r) {
-			emojis[type] = r[type]
-			emojis[type].forEach(function(emoji) {
-				fixProp(emoji, 'n', 'name')
-				fixProp(emoji, 'e', 'emoji')
-				fixProp(emoji, 's', 'skintone')
-			})
-		}
+		return new Promise(function(resolve) {
+			const r = JSON.parse(response)
+			const first = !Object.keys(supported_cache).length
+			emojis[''] = getRegistered()
+			for (const type in r) {
+				emojis[type] = r[type]
+				emojis[type].forEach(function(emoji) {
+					fixProp(emoji, 'n', 'name')
+					fixProp(emoji, 'e', 'emoji')
+					fixProp(emoji, 's', 'skintone')
+					if (first) isSupported(emoji.emoji)
+				})
+			}
+			resolve(true)
+		})
 	}
 
 	const skinTones = {
@@ -170,16 +179,19 @@ const Emojis = (function() {	// eslint-disable-line no-unused-vars
 	}
 
 	const fetchEmojis = function() {
-		try {
-			fetch(getPath() + '/data-by-group.16.min.json', {
-				method: 'GET',
-				headers: { 'Accept': 'application/json' }
-			})
-			.then(response => response.text())
-			.then(response => parseEmojis(response))
-		} catch(error) {
-			console.log('fetchEmojis', error)
-		}
+		return new Promise(function(resolve) {
+			try {
+				fetch(getPath() + '/data-by-group.16.min.json', {
+					method: 'GET',
+					headers: { 'Accept': 'application/json' }
+				})
+				.then(response => response.text())
+				.then(response => resolve(parseEmojis(response)))
+			} catch(error) {
+				console.log('fetchEmojis', error)
+				resolve(error)
+			}
+		})
 	}
 
 	return {
@@ -278,6 +290,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 	}
 
 	const setSubmenu = function() {
+		document.body.style.cursor = 'wait'
 		const topmenu = options.topmenu && (options.topmenu.search || options.topmenu.iconSize || options.topmenu.skinTone)
 		let listDiv = this.util.createElement('div')
 		listDiv.className = 'se-submenu se-list-layer se-emojis-layer'
@@ -324,6 +337,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		const reset = typeof listDiv === 'undefined'
 		listDiv = listDiv || document.querySelector('.se-emojis-layer')
 		if (options.captions) {
+			//let start = window.performance.now()
 			for (let group of options.groups) {
 				const cnt = listDiv.querySelector('div[name="' + group + '"]')
 				if (reset && cnt) cnt.innerText = ''
@@ -333,9 +347,15 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 					})
 					fixLastRow(cnt)
 				} else {
-					console.log(`error: emoji does not exist for type '${type}'`)
+					console.log(`error: emoji does not exist for type '${group}'`)
 				}
 			}
+			/*
+			let end = window.performance.now()
+			let time = end - start
+			console.log(time)
+			*/
+			document.body.style.cursor = 'default'
 		} else {
 			const cnt = listDiv.querySelector('div[name="emojis"]')
 			if (reset && cnt) cnt.innerText = ''
@@ -345,7 +365,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 						if (emoji && cnt) createBtn(emoji, cnt)
 					})
 				} else {
-					console.log(`error: emoji does not exist for type '${type}'`)
+					console.log(`error: emoji does not exist for type '${group}'`)
 				}
 			}
 			fixLastRow(cnt)
@@ -558,7 +578,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		display: display,
 		innerHTML: innerHTML,
 		title: title,
-		add: add
+		add: add,
 	}
 
 })(Emojis);
