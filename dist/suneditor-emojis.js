@@ -251,7 +251,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 
 	const add = function(core, targetElement) {
 		_core = core
-		setOptions()
+		options = Object.assign({}, default_options, _core.options.emojis)
 		let listDiv = setSubmenu.call(core)
 		const topmenu = listDiv.querySelector('div[name="' + topmenu_name + '"]')
 		populateEmojis(listDiv)
@@ -269,31 +269,6 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 					listDiv.querySelector('div[name="' + recent_name + '"]').style.marginTop = topmenu.offsetHeight + 'px'
 				})
 			}
-		}
-	}
-
-	const setOptions = function() {
-		const test = function(prop, type) {
-			const warn = function() {
-				options[prop] = default_options[prop]
-				console.warn(`emojis.${prop} should be of type ${type}`)
-			}	
-			if (type === 'array') {
-				if (!Array.isArray(options[prop])) warn()
-			} else {
-				if (typeof options[prop] !== type) warn()
-			}
-		}
-		if (_core.options.emojis) {
-			//if (_core.options.emojis.captions === false) _core.options.emojis.captions = Array(default_groups.length).fill('')
-			options = Object.assign({}, default_options, _core.options.emojis)
-/*
-			test('groups', 'array')
-			test('captions', 'array')
-			test('iconSize', 'string')
-			test('skinTone', 'string')
-			test('showFallbacks', 'boolean')
-*/
 		}
 	}
 
