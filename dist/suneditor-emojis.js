@@ -253,15 +253,23 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		_core = core
 		setOptions()
 		let listDiv = setSubmenu.call(core)
+		const topmenu = listDiv.querySelector('div[name="' + topmenu_name + '"]')
 		populateEmojis(listDiv)
-		if (options.showRecent) updateRecent(listDiv)
-		setTopmenu(listDiv.querySelector('div[name="' + topmenu_name + '"]'))
+		setTopmenu(topmenu)
 		core.initMenuTarget(name, targetElement, listDiv)
 		if (options.height) {
 			document.querySelector('.se-emojis').style.height = options.height
 			document.querySelector('.se-emojis-layer').style.overflowY = 'hidden'
 		}
 		if (options.width) document.querySelector('.se-emojis').style.width = options.width
+		if (options.showRecent) {
+			updateRecent(listDiv)
+			if (topmenu) {
+				setTimeout(function() {
+					listDiv.querySelector('div[name="' + recent_name + '"]').style.marginTop = topmenu.offsetHeight + 'px'
+				})
+			}
+		}
 	}
 
 	const setOptions = function() {
@@ -301,8 +309,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 			html += `<div name="${topmenu_name}" class="topmenu"></div>`
 		}
 		if (options.showRecent) {
-			const s = topmenu ? 'style="margin-top:2.2rem;"' : ''
-			html += `<div name="${recent_name}" ${s} class="se-emojis-recent"></div>`
+			html += `<div name="${recent_name}" class="se-emojis-recent"></div>`
 		}
 		if (topmenu && options.topmenu.search) {
 			html += `<div name="${result_name}" class="se-emojis-group se-emojis-result" style="font-size:${options.iconSize};"></div>`
