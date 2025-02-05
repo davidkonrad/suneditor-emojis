@@ -64,7 +64,7 @@ emojis: {
 #### groups
 
 Specifies the kind of emojis to include in the dropdown. The emojis are ordered into their official <q>super</q> 
-group names (see About unicode emojis). If ```groups``` are not set, all groups are included
+group names (see <a href="#about-unicode-emojis">About unicode emojis</a>). If ```groups``` are not set, all groups are included
 
 ```javascript
 emojis: {
@@ -190,20 +190,23 @@ emojis: {
 }
 ```
 
-# About unicode emojis
-As mentioned above the emojis are ordered into 9 <q>super</q> groups :
+<a id="about-uniocode-emojis"></a>
+
+## About unicode emojis
+
+As suggested above the emojis are ordered into 9 <q>super</q> groups :
 
 | # | group | emojis (v16.0)
 --- | --- | --- | 
-😀 | ```'Smileys & Emotion'``` | 169
-🎯 | ```'Activities'``` | 85
-🦓 | ```'Animals & Nature'``` | 159
-🇩🇰 | ```'Flags'``` | 270
-🍷 | ```'Food & Drink'``` | 131
-👑 | ```'Objects'``` | 264
-👍 | ```'People & Body'``` | 386
-🚫 | ```'Symbols'``` | 224
-🚀 | ```'Travel & Places'``` | 218
+😀 | 'Smileys & Emotion' | 169
+🎯 | 'Activities' | 85
+🦓 | 'Animals & Nature' | 159
+🇩🇰 | 'Flags' | 270
+🍷 | 'Food & Drink' | 131
+👑 | 'Objects' | 264
+👍 | 'People & Body' | 386
+🚫 | 'Symbols' | 224
+🚀 | 'Travel & Places' | 218
 
 No browser or reader will ever support the entire scope of unicode, and will never implement
 each and every unicode emoji <q><em>correct</em></q> or as <em>intended</em>. So the plugin will only be able 
