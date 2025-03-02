@@ -102,7 +102,7 @@ const Emojis = (function() {	// eslint-disable-line no-unused-vars
 			}
 			return c > 2
 		}
-		let res = undefined
+		let res = 1
 		if (canRender()) {
 			if (testFallback(emoji) > emoji_width) {
 				res = isNativeCompound(emoji) ? 1 : 2
@@ -273,7 +273,6 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 	}
 
 	const setSubmenu = function() {
-		document.body.style.cursor = 'wait'
 		const topmenu = options.topmenu && (options.topmenu.search || options.topmenu.iconSize || options.topmenu.skinTone)
 		let listDiv = this.util.createElement('div')
 		listDiv.className = 'se-submenu se-list-layer se-emojis-layer'
@@ -319,9 +318,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 		const reset = typeof listDiv === 'undefined'
 		listDiv = listDiv || document.querySelector('.se-emojis-layer')
 		if (options.captions) {
-
-			let start = window.performance.now()
-
+			//let start = window.performance.now()
 			for (let group of options.groups) {
 				const cnt = listDiv.querySelector('div[name="' + group + '"]')
 				if (reset && cnt) cnt.innerText = ''
@@ -334,12 +331,9 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 					console.log(`error: emoji does not exist for type '${group}'`)
 				}
 			}
-
-			let end = window.performance.now()
-			let time = end - start
-			console.log(time)
-
-			document.body.style.cursor = 'default'
+			//let end = window.performance.now()
+			//let time = end - start
+			//console.log(time)
 		} else {
 			const cnt = listDiv.querySelector('div[name="emojis"]')
 			if (reset && cnt) cnt.innerText = ''
