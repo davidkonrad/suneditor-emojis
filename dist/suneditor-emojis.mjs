@@ -5,8 +5,6 @@
  * MIT license.
  */
 
-"use strict";
-
 const Emojis = (function() {	// eslint-disable-line no-unused-vars
 	const storage_favorite = 'suneditor-emojis-fav'
 	const storage_supported = 'suneditor-emojis-sup'
@@ -568,4 +566,7 @@ const emojis = (function(Emojis) {	// eslint-disable-line no-unused-vars
 	}
 
 })(Emojis);
+
+
+export { emojis }
 
