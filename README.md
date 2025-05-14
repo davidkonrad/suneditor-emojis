@@ -1,7 +1,7 @@
 # suneditor-emojis
 
 Add a Unicode Emojis submenu to the SunEditor toolbar. The plugin covers the entire 
-Unicode standard and supports 'skin tone' where possible. 
+Unicode standard and supports 'skin tone' where possible. Works with SunEditor releases from 2.35.0 to latest, you can test all versions in the link below : 
 
 Demo ⇢ **https://suneditor-emojis.github.io**
 
@@ -14,13 +14,26 @@ without showing "odd" emojis
 
 - A built-in cache speeds up loading and rendering 
 
-## Usage
-Include JavaScript and CSS files from ```/dist``` :
-```html
-<script src="suneditor-emojis.min.js"></script>
-<link href="suneditor-emojis.css" rel="stylesheet" type="text/css">
+## Download and Installation
+Clone the repo into your project 
+```bash
+$ git clone https://github.com/davidkonrad/suneditor-emojis.git
 ```
-Now add ```emojis``` to SunEditors' ```plugins``` option, and add a ```'emojis'``` button to ```buttonList```  
+
+Download the the zip file and uncompress it into your project directory, or 
+## Include to your project
+Include CSS and JavaScript from ```/dist``` :
+```html
+<link href="path/to/dist/suneditor-emojis.css" rel="stylesheet" type="text/css">
+<script src="path/to/dist/suneditor-emojis.min.js"></script>
+```
+You can also import the plugin as a module, the ```.mjs```  version exports ```emojis``` 
+```javascript
+import { emojis } from './path/to/dist/suneditor-emojis.min.mjs'
+```
+## Use in SunEditor
+
+Add ```emojis``` to SunEditors' ```plugins``` option, add a ```'emojis'``` button to ```buttonList```  
 ```javascript
 const editor = SUNEDITOR.create('editor', {
   ...     
@@ -38,6 +51,10 @@ Add the following CSS rule to any page that shows text produced by SunEditor, bu
 }
 ```
 
+#### Version 3
+SunEditor <a href="https://github.com/JiHong88/suneditor/tree/develop">v3.0.0</a> is coming! 
+As soon as I figure out the new plugin layout and how to register custom plugins, I will make
+a compatible version of this plugin as well. 
 ## Options
 If needed the dropdown can be customised in various ways through the ```emojis``` option
 
