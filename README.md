@@ -20,7 +20,7 @@ Clone the repo into your project
 $ git clone https://github.com/davidkonrad/suneditor-emojis.git
 ```
 
-Download the the zip file and uncompress it into your project directory, or 
+Or download the zip file and uncompress it into your project directory.
 ## Include to your project
 Include CSS and JavaScript from ```/dist``` :
 ```html
