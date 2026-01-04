@@ -183,7 +183,7 @@ const Emojis = (function() {	// eslint-disable-line no-unused-vars
 	const fetchEmojis = function() {
 		return new Promise(function(resolve) {
 			try {
-				fetch(getPath() + '/data-by-group.16.min.json', {
+				fetch(getPath() + '/data-by-group.min.json', {
 					method: 'GET',
 					headers: { 'Accept': 'application/json' }
 				})

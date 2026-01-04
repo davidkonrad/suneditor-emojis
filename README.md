@@ -213,17 +213,17 @@ emojis: {
 
 As suggested above the emojis are ordered into 9 <q>super</q> groups :
 
-| # | group | emojis (v16.0)
+| # | group | emojis (v17.0)
 --- | --- | --- | 
-😀 | 'Smileys & Emotion' | 169
+😀 | 'Smileys & Emotion' | 171
 🎯 | 'Activities' | 85
-🦓 | 'Animals & Nature' | 159
+🦓 | 'Animals & Nature' | 160
 🇩🇰 | 'Flags' | 270
 🍷 | 'Food & Drink' | 131
-👑 | 'Objects' | 264
-👍 | 'People & Body' | 386
+👑 | 'Objects' | 266
+👍 | 'People & Body' | 388
 🚫 | 'Symbols' | 224
-🚀 | 'Travel & Places' | 218
+🚀 | 'Travel & Places' | 219
 
 No browser or reader will ever support the entire scope of unicode, and will never implement
 each and every unicode emoji <q><em>correct</em></q> or as <em>intended</em>. So the plugin will only be able 
@@ -240,7 +240,7 @@ apple | https://emojipedia.org/apple | Apple Color Emoji
 ## Credits
 Suneditor-emojis is a plugin made for the excellent <b>SunEditor</b> wysiwyg editor https://github.com/JiHong88/suneditor.
 
-Thanks to <b>unicode-emoji-json</b>, https://github.com/muan/unicode-emoji-json, who maintain updated lists of all emojis.
+Thanks to <b>unicode-emoji-json</b>, https://github.com/muan/unicode-emoji-json, who have made a script that parses unicode-docs into useful JSON.
 
 
 ## License
